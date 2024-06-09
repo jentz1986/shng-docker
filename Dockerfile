@@ -106,6 +106,7 @@ RUN set -eux; \
     touch $PATH_CONF/$i/.not_mounted; \
   done; \
   chmod go+rw $PATH_CONF/etc; \
+  chmod go+rw $PATH_CONF/structs; \
 # prepare data
   mkdir -p $PATH_SHNG/var/run; \
   chmod go+rw $PATH_SHNG/var; \
