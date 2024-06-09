@@ -65,7 +65,7 @@ RUN set -eux; \
   # Add pymysql
   echo "pymysql" >>/requirements.txt; \
   # install python requirements
-  python -m pip install --no-cache-dir -r requirements.txt
+  python -m pip install --no-cache-dir -r requirements.txt; \
   # remove some plugins to remove their requirements
   if [ "$PLGN_CONFLICT" ]; then \
     for i in $PLGN_CONFLICT; do rm -rf plugins-default/$i; done; \
