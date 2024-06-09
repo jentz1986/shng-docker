@@ -86,6 +86,8 @@ RUN set -eux; \
   adduser --disabled-password --gecos "" smarthome; \
 # install needed tools
   apt-get update; apt-get install -y --no-install-recommends \
+    python3-pymysql \
+    python3-ephem \
     gosu \
     openzwave \
     procps \
