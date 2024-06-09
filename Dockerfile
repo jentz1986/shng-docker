@@ -70,7 +70,6 @@ RUN set -eux; \
 # necessary to run smarthome.py
   export PIP_ROOT_USER_ACTION=ignore; \
   /usr/local/bin/pip3 install --upgrade pip; \
-  /usr/local/bin/pip3 install --no-cache-dir ruamel.yaml<0.16.8; \
 # create requirement files
   python3 bin/smarthome.py --stop --pip3_command /usr/local/bin/pip3
 
