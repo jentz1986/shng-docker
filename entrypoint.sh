@@ -192,3 +192,5 @@ if [ "$USER_SHNG" ]; then
 else
   exec bash -c "/shng_wrapper.sh $SHNG_ARG"
 fi
+
+sleep $SLEEP_AFTER_CRASH
