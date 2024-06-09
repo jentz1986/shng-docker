@@ -38,13 +38,35 @@ RUN set -eux; \
   fi
 
 ### Build Stage 11 - determine requirements for smarthomeNG #######################
-FROM stage1 As stage2
+FROM stage1 As stage3
 
 ARG PLGN_CONFLICT="appletv hue2"
 
 WORKDIR /usr/local/smarthome
 RUN set -eux; \
-# remove some plugins to remove their requirements
+  apt-get update; apt-get install -y --no-install-recommends \
+  #pyjq
+  python3-ephem \
+  automake \
+  #pyjq, openzwave
+  build-essential \
+  #bluepy
+  libglib2.0-dev \
+  #rrd
+  librrd-dev \
+  #pyjq
+  libtool; \
+  #openzwave
+  ## libudev-dev \
+  ## openzwave; \
+  rm -rf /var/lib/apt/lists/*; \
+  # fix python requirements
+  echo "holidays<0.13" >>/requirements.txt; \
+  # Add pymysql
+  echo "pymysql" >>/requirements.txt; \
+  # install python requirements
+  python -m pip install --no-cache-dir -r requirements.txt
+  # remove some plugins to remove their requirements
   if [ "$PLGN_CONFLICT" ]; then \
     for i in $PLGN_CONFLICT; do rm -rf plugins-default/$i; done; \
   fi; \
@@ -56,36 +78,6 @@ RUN set -eux; \
   /usr/local/bin/pip3 install --no-cache-dir ruamel.yaml; \
 # create requirement files
   python3 bin/smarthome.py --stop --pip3_command /usr/local/bin/pip3
-
-### Build Stage 3 - build requirements for smarthomeNG ###########################
-FROM python-base As stage3
-
-COPY --from=stage2 /usr/local/smarthome/requirements/all.txt /requirements.txt
-
-# install/update/build requirements
-RUN set -eux; \
-  apt-get update; apt-get install -y --no-install-recommends \
-    #pyjq
-    python3-ephem \
-    automake \
-    #pyjq, openzwave
-    build-essential \
-    #bluepy
-    libglib2.0-dev \
-    #rrd
-    librrd-dev \
-    #pyjq
-    libtool; \
-    #openzwave
-    ## libudev-dev \
-    ## openzwave; \
-  rm -rf /var/lib/apt/lists/*; \
-# fix python requirements
-  echo "holidays<0.13" >>/requirements.txt; \
-# Add pymysql
-  echo "pymysql" >>/requirements.txt; \
-# install python requirements
-  python -m pip install --no-cache-dir -r requirements.txt
 
 ### Final Stage ##################################################################
 FROM python-base
