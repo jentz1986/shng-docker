@@ -69,7 +69,7 @@ while :; do
         _stop
        ;;
     1) _print Something went wrong. Bye bye!
-       exit 1
+       sleep $SLEEP_AFTER_CRASH
        ;;
     *) _print Oops. Bye bye!
        exit $SHNG_RC

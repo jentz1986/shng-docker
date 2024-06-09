@@ -185,12 +185,16 @@ else
   touch $PATH_PLGN_TRGT/.was_merge_built
 fi
 
+_print INFO This is the configuration folders content
+for i in $DIRS_CONF; do
+  ls -lahR $PATH_SHNG/$i/
+done
+
 # start SmartHomeNG
+_print INFO Starting SHNG now
 cd $PATH_SHNG
 if [ "$USER_SHNG" ]; then
   exec gosu $USER_SHNG bash -c "/shng_wrapper.sh $SHNG_ARG"
 else
   exec bash -c "/shng_wrapper.sh $SHNG_ARG"
 fi
-
-sleep $SLEEP_AFTER_CRASH
