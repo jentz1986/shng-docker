@@ -68,7 +68,7 @@ while :; do
         _print Restart \($START_CNT time$( ((START_CNT==1)) || echo s)  within ${SECONDS}s\). Try to catch the spawn...
         _stop
        ;;
-    1) _print Something went wrong ( $START_CNT x). Sleeping after crash for: $SLEEP_AFTER_CRASH
+    1) _print Something went wrong, counter: $START_CNT. Sleeping after crash for: $SLEEP_AFTER_CRASH
        sleep $SLEEP_AFTER_CRASH
        ;;
     *) _print Oops. Bye bye!

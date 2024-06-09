@@ -185,6 +185,11 @@ else
   touch $PATH_PLGN_TRGT/.was_merge_built
 fi
 
+if [ ! -f $PATH_SHNG/etc/logging.yaml ]; then
+  _print WARNING No logging.yaml in $PATH_SHNG/etc, copying default one there.
+  cp $PATH_SHNG/etc/logging.yaml.default $PATH_SHNG/etc/logging.yaml
+fi
+
 _print INFO This is the configuration folders content
 for i in $DIRS_CONF; do
   ls -lahR $PATH_SHNG/$i/
