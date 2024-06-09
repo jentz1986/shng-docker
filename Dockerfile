@@ -45,9 +45,7 @@ ARG PLGN_CONFLICT="appletv hue2"
 WORKDIR /usr/local/smarthome
 RUN set -eux; \
   apt-get update; apt-get install -y --no-install-recommends \
-  python3-pymysql \
   #pyjq
-  python3-ephem \
   automake \
   #pyjq, openzwave
   build-essential \
@@ -85,21 +83,20 @@ RUN set -eux; \
   adduser --disabled-password --gecos "" smarthome; \
 # install needed tools
   apt-get update; apt-get install -y --no-install-recommends \
-    python3-pymysql \
-    python3-ephem \
     build-essential \
     gosu \
     openzwave \
     procps \
     unzip; \
   rm -rf /var/lib/apt/lists/*; \
-  #python -m pip install --no-cache-dir --upgrade pip; \
+  /usr/local/bin/pip3 install --upgrade pip; \
+  /usr/local/bin/pip3 install pymsql; \
 # prepare volumes
   PATH_SHNG="/usr/local/smarthome"; \
   PATH_CONF="/mnt/conf"; \
   PATH_DATA="/mnt/data"; \
   PATH_HTML="/mnt/html"; \
-  DIRS_CONF="etc items logics scenes functions"; \
+  DIRS_CONF="etc items logics scenes functions structs"; \
   DIRS_DATA="backup restore cache db log"; \
   chmod go+rws $PATH_SHNG/requirements; \
 # prepare conf
