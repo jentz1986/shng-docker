@@ -90,7 +90,7 @@ RUN set -eux; \
     unzip; \
   rm -rf /var/lib/apt/lists/*; \
   /usr/local/bin/pip3 install --upgrade pip; \
-  /usr/local/bin/pip3 install pymsql; \
+  /usr/local/bin/pip3 install pymysql; \
 # prepare volumes
   PATH_SHNG="/usr/local/smarthome"; \
   PATH_CONF="/mnt/conf"; \
