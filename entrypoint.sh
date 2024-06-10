@@ -8,6 +8,8 @@ PATH_DATA=/mnt/data
 PATH_PLGN_USER=/mnt/plugins
 PATH_PLGN_TRGT=/usr/local/smarthome/plugins
 PATH_PLGN_DFLT=/usr/local/smarthome/plugins-default
+PATH_STRCT_DST=/usr/local/smarthome/structs
+PATH_STRCT_SRC=/mnt/conf/structs
 PATH_HTML=/mnt/html
 DIRS_CONF="etc items logics scenes functions structs"
 DIRS_DATA="backup restore cache db log"
@@ -54,6 +56,10 @@ if [ -f $PATH_SHNG/etc/.not_mounted ]; then
   elif [ "$WARN_MOUNT_DATA" ]; then
     _print WARN: Data dirs \"$WARN_MOUNT_DATA\" are not mounted. Related data files will not be permanent!
   fi
+
+  # link structs back in again, remove empty directory before
+  rmdir $PATH_STRCT_DST
+  ln -s $PATH_STRCT_SRC $PATH_STRCT_DST
   
   # prepare smartvisu
   mkdir -p $PATH_HTML
